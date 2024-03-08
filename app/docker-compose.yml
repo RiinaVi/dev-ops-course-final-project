@@ -15,18 +15,18 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - 5432:5432
-#  web:
-#    command: bash -c "while !</dev/tcp/postgres/5432;do sleep 1; done; npm run build; npm run typeorm:run; npm run start"
-#    build:
-#      context: .
-#    depends_on:
-#      - postgres
-#    environment:
-#      - PORT=${PORT}
-#      - POSTGRES_HOST=${POSTGRES_HOST}
-#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#      - POSTGRES_DB=${POSTGRES_DB}
-#      - POSTGRES_USER=${POSTGRES_USER}
-#      - POSTGRES_PORT=${POSTGRES_PORT}
-#    ports:
-#      - 8080:8080
+  web:
+    command: bash -c "while !</dev/tcp/postgres/5432;do sleep 1; done; npm run build; npm run typeorm:run; npm run start"
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      - PORT=${PORT}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+    ports:
+      - 8080:8080
