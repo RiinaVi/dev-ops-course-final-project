@@ -1,9 +1,5 @@
-import { Request } from 'express';
-
-const getImageLink = (req: Request, fileName: string) => {
-  return `${req.protocol}://${req.hostname}${
-    process.env.NODE_ENV === 'dev' ? `:${process.env.PORT}` : ''
-  }/image/${fileName}`;
+const getImageLink = (fileName: string) => {
+ return `https://${process.env.S3_BUCKET}.s3.${process.env.S3_REGION}.amazonaws.com/${fileName}`;
 };
 
 export default getImageLink;

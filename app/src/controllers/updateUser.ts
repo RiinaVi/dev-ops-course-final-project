@@ -38,11 +38,11 @@ const updateUser = async (req: Request, res: Response) => {
       }
 
       if (files.image) {
-        deleteImageById(id);
+        await deleteImageById(id);
       }
 
       const userImage = files.image
-        ? getImageLink(req, await createImageById(id, files.image))
+        ? getImageLink(await createImageById(id, files.image))
         : userData.image;
 
       await userRepository.patch(id, {

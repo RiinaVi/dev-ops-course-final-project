@@ -1,17 +1,12 @@
 import { Request, Response } from 'express';
-import path from 'path';
-import fs from 'fs';
 
-import { IMAGES_DIRECTORY } from '../utils';
+import { getImageLink } from '../utils';
 
 const getImagePath = (req: Request, res: Response) => {
   const { id } = req.params;
-  const filePath = path.join(IMAGES_DIRECTORY, id);
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).send({ error: { message: 'image not found' } });
-  }
+  const filePath = getImageLink(id);
 
-  res.sendFile(filePath);
+  res.send({ filePath });
 };
 
 export default getImagePath;

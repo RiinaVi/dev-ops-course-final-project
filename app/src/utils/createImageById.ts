@@ -1,20 +1,35 @@
 import { File } from 'formidable';
-import path from 'path';
 import fs from 'fs';
-
-import { IMAGES_DIRECTORY } from './index';
+import { PutObjectCommand, S3Client, PutObjectCommandInput } from '@aws-sdk/client-s3';
 
 const createImageById = async (id: string, file: File) => {
-  const extname = path.extname(file.name);
-  const fileName = `${id}${extname}`;
-
   const rawData = fs.readFileSync(file.path);
+  const region = process.env.S3_REGION;
+  const accessKeyId = process.env.S3_API_KEY;
+  const secretAccessKey = process.env.S3_API_SECRET;
+  const client = new S3Client(
+    {
+      region,
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+      },
+    }
+  );
+  const params: PutObjectCommandInput = {
+    Bucket: process.env.S3_BUCKET,
+    Key: id,
+    Body: rawData,
+    ACL: 'public-read',
+  };
+  const command = new PutObjectCommand(params);
+  try {
+    await client.send(command);
+  } catch (error) {
+    console.log({error});
+  }
 
-  const filePath = path.join(IMAGES_DIRECTORY, fileName);
-
-  fs.writeFileSync(filePath, rawData);
-
-  return fileName;
+  return id;
 };
 
 export default createImageById;

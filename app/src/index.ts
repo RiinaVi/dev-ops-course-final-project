@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import { createConnection } from 'typeorm';
 
 import router from './routes';
-import { PUBLIC_DIRECTORY } from './utils';
 
 const app = express();
 
@@ -20,9 +19,6 @@ const main = async () => {
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-
-  app.use('/public', express.static(PUBLIC_DIRECTORY));
-  app.use(express.static(PUBLIC_DIRECTORY));
 
   app.use('/', router);
 

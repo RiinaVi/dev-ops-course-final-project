@@ -55,7 +55,7 @@ const createUser = (req: Request, res: Response) => {
 
       const fileName = await createImageById(user.id, files.image);
 
-      user.image = getImageLink(req, fileName);
+      user.image = getImageLink(fileName);
 
       await userRepository.put(user);
 

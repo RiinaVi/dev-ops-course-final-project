@@ -15,7 +15,7 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 
   await userRepository.drop(id);
-  deleteImageById(id);
+  await deleteImageById(id);
 
   res.send(userData);
 };
