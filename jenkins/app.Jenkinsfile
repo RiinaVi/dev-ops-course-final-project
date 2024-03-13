@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+            docker { image 'riinavi/users-api:latest' }
+        }
 
     parameters {
             string(name: 'USER', defaultValue: 'ubuntu',  description: 'Username')
@@ -8,23 +10,12 @@ pipeline {
         }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM',
-                          branches: [[name: '*/main']],
-                          userRemoteConfigs: [[url: 'git@github.com:RiinaVi/dev-ops-course-final-project.git',
-                                               credentialsId: 'github-credentials']]])
-            }
-        }
 
         stage('Build') {
             steps {
-                dir('app') {
                     script {
-                        sh 'npm install'
-                        sh 'npm run build'
+                        sh 'docker-compose up'
                     }
-                }
             }
             post {
                 success {
