@@ -43,9 +43,9 @@ agent any
                   stage('Deploy the Application') {
                       steps {
                             script {
-//                                  sshagent(credentials: ['ec2-key']) {
-                                 withAWS(credentials: 'aws-credentials') {
-                                 sh "echo ${credentials}"
+                                 sshagent(credentials: ['ec2-key']) {
+                                    withAWS(credentials: 'aws-credentials') {
+                                        sh "echo ${credentials}"
 //                                     withCredentials([[
 //                                         $class: 'UsernamePasswordMultiBinding',
 //                                          credentialsId: 'aws-credentials',
@@ -69,7 +69,7 @@ agent any
 //                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
                                     }
 
-//                                  }
+                                 }
                             }
                       }
                   }
