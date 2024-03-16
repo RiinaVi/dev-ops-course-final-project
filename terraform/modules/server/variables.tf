@@ -26,3 +26,7 @@ variable "instance_env" {
   description = "Instance Env"
   type = string
 }
+variable "key_name" {
+  description = "Key Name"
+  type = string
+}

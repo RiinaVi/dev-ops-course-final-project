@@ -1,0 +1,9 @@
+.idea
+
+terraform/.terraform
+
+*.hcl
+*.pub
+*.j2
+*.txt
+*_key

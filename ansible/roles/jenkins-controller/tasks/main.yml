@@ -15,3 +15,8 @@
   include_tasks: configuration_as_code.yml
   tags:
     - template_config_files
+
+- name: Install Docker
+  include_tasks: install_docker.yml
+  tags:
+    - install_docker

@@ -1,5 +1,25 @@
 // Файл конфігурації пайплайнів
 
+pipelineJob('docker/docker') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('git@github.com:RiinaVi/dev-ops-course-final-project.git')
+                        credentials('github-credentials')
+                    }
+                    branch('*/main')
+                    extensions { }
+                }
+            }
+            scriptPath('jenkins/docker.Jenkinsfile')
+            lightweight(true)
+        }
+    }
+}
+
+
 pipelineJob('ansible/ansible') {
     definition {
         cpsScm {

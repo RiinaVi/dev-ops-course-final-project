@@ -3,6 +3,7 @@ resource "aws_instance" "ec2" {
   instance_type = var.instance_type
   subnet_id = var.subnet_id
   security_groups = [var.security_groups_name]
+  key_name = var.key_name
   associate_public_ip_address = true
   tags = {
     Name = var.instance_name

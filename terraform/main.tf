@@ -48,12 +48,13 @@ module "security" {
 module "jenkins" {
   source               = "./modules/server"
   ami                  = "ami-05fb0b8c1424f266b"
-  instance_type        = "t2.micro"
+  instance_type        = "t3.small"
   subnet_id            = module.network.public_subnets_ids[0]
   security_groups_name = module.security.sg_id
   instance_name        = "jenkins-instance"
   instance_env         = "jenkins"
   instance_role        = "core"
+  key_name = module.security.key_name
 }
 
 module "node_app" {
@@ -65,6 +66,23 @@ module "node_app" {
   instance_name        = "node-app-instance"
   instance_env         = "node-app"
   instance_role        = "core"
+  key_name = module.security.key_name
+
+}
+
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.server_storage.id
+  instance_id = module.node_app.instance_id
+}
+
+resource "aws_ebs_volume" "server_storage" {
+  availability_zone = "us-east-2a"
+  size              = 20
+
+  tags = {
+    Name = "server-storage"
+  }
 }
 
 resource "local_file" "jenkins_ip" {
