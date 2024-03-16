@@ -44,27 +44,29 @@ agent any
                       steps {
                             script {
                                  sshagent(credentials: ['ec2-key']) {
-                                    withCredentials([[
-                                        $class: 'UsernamePasswordMultiBinding',
-                                         credentialsId: 'aws-credentials',
-                                         usernameVariable: 'S3_API_KEY',
-                                         passwordVariable: 'S3_API_SECRET',
-                                    ]]) {
-                                        sh """cat > .env << EOF
-                                            PORT=${PORT}
-                                            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-                                            POSTGRES_DB=${POSTGRES_DB}
-                                            POSTGRES_USER=${POSTGRES_USER}
-                                            POSTGRES_PORT=${POSTGRES_PORT}
-                                            S3_API_KEY=${S3_API_KEY}
-                                            S3_API_SECRET=${S3_API_SECRET}
-                                            S3_REGION=${S3_REGION}
-                                            S3_BUCKET=${S3_BUCKET}
-                                            POSTGRES_HOST=${POSTGRES_HOST}
-EOF"""
-                                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
-                                        sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml .env ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
-                                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
+                                 withAWS(credentials: 'aws-credentials') {
+                                 sh "echo ${credentials}"
+//                                     withCredentials([[
+//                                         $class: 'UsernamePasswordMultiBinding',
+//                                          credentialsId: 'aws-credentials',
+//                                          usernameVariable: 'S3_API_KEY',
+//                                          passwordVariable: 'S3_API_SECRET',
+//                                     ]]) {
+//                                         sh """cat > .env << EOF
+//                                             PORT=${PORT}
+//                                             POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+//                                             POSTGRES_DB=${POSTGRES_DB}
+//                                             POSTGRES_USER=${POSTGRES_USER}
+//                                             POSTGRES_PORT=${POSTGRES_PORT}
+//                                             S3_API_KEY=${S3_API_KEY}
+//                                             S3_API_SECRET=${S3_API_SECRET}
+//                                             S3_REGION=${S3_REGION}
+//                                             S3_BUCKET=${S3_BUCKET}
+//                                             POSTGRES_HOST=${POSTGRES_HOST}
+// EOF"""
+//                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
+//                                         sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml .env ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
+//                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
                                     }
 
                                  }
