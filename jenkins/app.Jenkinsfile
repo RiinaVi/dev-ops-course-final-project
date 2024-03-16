@@ -10,6 +10,14 @@ agent any
             string(name: 'DESTINATION_PATH', defaultValue: '/home/ubuntu/app',  description: 'Server destination path')
         }
         stages {
+            stage('Cloning our Git') {
+                        steps {
+                           checkout([$class: 'GitSCM',
+                                     branches: [[name: '*/main']],
+                                     userRemoteConfigs: [[url: 'git@github.com:RiinaVi/dev-ops-course-final-project.git',
+                                                          credentialsId: 'github-credentials']]])
+                        }
+                    }
             stage('Build') {
                       agent {
                           docker {
