@@ -5,6 +5,11 @@ folder('docker') {
     description('Docker image build')
 }
 
+folder('infrastructure') {
+    displayName('infrastructure')
+    description('Infrastructure pipelines')
+}
+
 folder('ansible') {
     displayName('ansible')
     description('Configuration pipelines')
