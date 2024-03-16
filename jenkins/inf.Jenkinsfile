@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'STAGE_TO_EXECUTE', choices: ['Apply', 'Destroy'], description: 'Select action')
+        choice(name: 'STAGE_TO_EXECUTE', defaultValue: 'Apply', choices: ['Apply', 'Destroy'], description: 'Select action')
     }
 
     stages {

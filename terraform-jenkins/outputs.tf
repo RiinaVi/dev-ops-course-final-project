@@ -2,6 +2,10 @@ output "jenkins_ip" {
   value = module.jenkins.public_ip
 }
 
+output "jenkins_full_url" {
+  value = "http://${module.jenkins.public_ip}:8080"
+}
+
 output "vpc_id" {
   value = module.network.vpc_id
 }

@@ -9,10 +9,12 @@ pipeline {
         string(name: 'POSTGRES_USER', defaultValue: 'postgres',  description: 'Postgres user')
         string(name: 'POSTGRES_HOST', defaultValue: 'postgres',  description: 'Postgres host')
         string(name: 'POSTGRES_PORT', defaultValue: '5432',  description: 'Postgres port')
-        string(name: 'POSTGRES_PASSWORD', defaultValue: '',  description: 'Postgres password')
+//         string(name: 'POSTGRES_PASSWORD', defaultValue: '',  description: 'Postgres password')
         string(name: 'POSTGRES_DB', defaultValue: 'test',  description: 'Postgres db')
         string(name: 'S3_REGION', defaultValue: 'us-east-2',  description: 'S3 region')
-        string(name: 'S3_BUCKET', defaultValue: '',  description: 'S3 bucket')
+        string(name: 'S3_BUCKET', defaultValue: 'dev-ops-course-final-project-users-images-bucket',  description: 'S3 bucket')
+
+        credentials(name: 'postgres-password', description: 'postgresql db password', defaultValue: '', credentialType: "String", required: true )
     }
 
     stages {
@@ -42,7 +44,7 @@ pipeline {
                    sshagent(credentials: ['ec2-key']) {
                         sh '''cat > .env << EOF
                             PORT=${PORT}
-                            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+                            POSTGRES_PASSWORD=${postgres-password}
                             POSTGRES_DB=${POSTGRES_DB}
                             POSTGRES_USER=${POSTGRES_USER}
                             POSTGRES_PORT=${POSTGRES_PORT}
@@ -57,6 +59,11 @@ EOF'''
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up -d --build'"
                  }
              }
+         }
+         stage('Return server url') {
+            steps {
+                echo "App has been started on http://${SERVER_IP}:${PORT}"
+            }
          }
      }
 }

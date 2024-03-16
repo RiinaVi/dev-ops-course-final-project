@@ -11,6 +11,7 @@
     - { src: "ec2-key.j2", dest: "{{ jenkins_home }}/ec2-key" }
     - { src: "aws-key.j2", dest: "{{ jenkins_home }}/aws-key" }
     - { src: "dockerhub-token.j2", dest: "{{ jenkins_home }}/dockerhub-token" }
+    - { src: "postgres-password.j2", dest: "{{ jenkins_home }}/postgres-password" }
   tags:
     - template_config_files
 
