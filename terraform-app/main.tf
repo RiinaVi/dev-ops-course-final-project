@@ -50,7 +50,7 @@ resource "aws_volume_attachment" "ebs_att" {
 }
 
 resource "aws_ebs_volume" "server_storage" {
-  availability_zone = "us-east-2a"
+  availability_zone = "us-east-2b"
   size              = 20
 
   tags = {
