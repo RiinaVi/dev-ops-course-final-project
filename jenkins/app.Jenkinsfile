@@ -18,7 +18,7 @@ agent any
             string(name: 'S3_BUCKET', defaultValue: '',  description: 'S3 bucket')
 //             string(name: 'S3_API_KEY', defaultValue: '',  description: 'S3 API key', required: true)
 //             string(name: 'S3_API_SECRET', defaultValue: '',  description: 'S3 API secret', required: true)
-            credentials(name: 'S3_API_KEY', description: 'A user to build with', defaultValue: '', credentialType: "Username with password", required: true )
+//             credentials(name: 'S3_API_KEY', description: 'A user to build with', defaultValue: '', credentialType: "Username with password", required: true )
         }
         stages {
             stage('Cloning our Git') {
