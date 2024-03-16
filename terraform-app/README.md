@@ -32,5 +32,4 @@ No inputs.
 | Name                                                        | Description                                   |
 |-------------------------------------------------------------|-----------------------------------------------|
 | <a name="output_jenkins"></a> [jenkins](./outputs.tf)       | Output of Jenkins server: public IP and ID    |
-| <a name="output_monitoring"></a> [monitoring](./outputs.tf) | Output of Monitoring server: public IP and ID |
 <!-- END_TF_DOCS -->

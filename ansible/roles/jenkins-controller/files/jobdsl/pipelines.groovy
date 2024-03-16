@@ -19,6 +19,25 @@ pipelineJob('docker/docker') {
     }
 }
 
+pipelineJob('infrastructure/terraform') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('git@github.com:RiinaVi/dev-ops-course-final-project.git')
+                        credentials('github-credentials')
+                    }
+                    branch('*/main')
+                    extensions { }
+                }
+            }
+            scriptPath('jenkins/inf.Jenkinsfile')
+            lightweight(true)
+        }
+    }
+}
+
 
 pipelineJob('ansible/ansible') {
     definition {
