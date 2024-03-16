@@ -24,7 +24,7 @@ resource "aws_security_group" "sg" {
   }
 }
 
-resource "aws_key_pair" "jenkins_server_ec2_key" {
-  key_name = "jenkins_server_2_ec2_key"
-  public_key = file("../terraform-jenkins/ec2_key.pub")
-}
+#resource "aws_key_pair" "jenkins_server_ec2_key" {
+#  key_name = "jenkins_server_2_ec2_key"
+#  public_key = file("../terraform-jenkins/ec2_key.pub")
+#}
