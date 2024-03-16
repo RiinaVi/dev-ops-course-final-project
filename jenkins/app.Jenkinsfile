@@ -8,26 +8,29 @@ pipeline {
             string(name: 'SERVER_IP', defaultValue: '',  description: 'Server IP address')
             string(name: 'DESTINATION_PATH', defaultValue: '/home/ubuntu/app',  description: 'Server destination path')
         }
-        stage('Build') {
-              agent {
-                  docker {
-                      image 'riinavi/users-api:latest'
-                      reuseNode true
+        stages {
+            stage('Build') {
+                      agent {
+                          docker {
+                              image 'riinavi/users-api:latest'
+                              reuseNode true
+                          }
+                      }
+                      steps {
+                         echo "Building app using Docker Image"
+                      }
                   }
-              }
-              steps {
-                 echo "Building app using Docker Image"
-              }
-          }
-          stage('Deploy the Application') {
-              steps {
-                    script {
-                         sshagent(credentials: ['ec2-key']) {
-                                sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
-                         }
-                    }
-              }
-          }
+                  stage('Deploy the Application') {
+                      steps {
+                            script {
+                                 sshagent(credentials: ['ec2-key']) {
+                                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
+                                 }
+                            }
+                      }
+                  }
+        }
+
 //     stages {
 //
 //         stage('Build') {
