@@ -1,4 +1,5 @@
 pipeline {
+agent any
 //     agent {
 //             docker { image 'riinavi/users-api:latest' }
 //         }
