@@ -34,6 +34,7 @@ agent any
                             script {
                                  sshagent(credentials: ['ec2-key']) {
                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
+                                         sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
                                  }
                             }
