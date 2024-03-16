@@ -18,7 +18,7 @@ agent any
             string(name: 'S3_BUCKET', defaultValue: '',  description: 'S3 bucket')
 //             string(name: 'S3_API_KEY', defaultValue: '',  description: 'S3 API key', required: true)
 //             string(name: 'S3_API_SECRET', defaultValue: '',  description: 'S3 API secret', required: true)
-//             credentials(name: 'CredsToUse', description: 'A user to build with', defaultValue: '', credentialType: "Username with password", required: true )
+            credentials(name: 'S3_API_KEY', description: 'A user to build with', defaultValue: '', credentialType: "Username with password", required: true )
         }
         stages {
             stage('Cloning our Git') {
@@ -44,32 +44,32 @@ agent any
                       steps {
 //                             script {
                                  sshagent(credentials: ['ec2-key']) {
-                                    withAWS(credentials: 'aws-credentials') {
-                                        sh "echo ${credentials}"
+//                                     withAWS(credentials: 'aws-credentials') {
+//                                         sh "echo ${credentials}"
 //                                     withCredentials([[
 //                                         $class: 'UsernamePasswordMultiBinding',
 //                                          credentialsId: 'aws-credentials',
 //                                          usernameVariable: 'S3_API_KEY',
 //                                          passwordVariable: 'S3_API_SECRET',
 //                                     ]]) {
-//                                         sh """cat > .env << EOF
-//                                             PORT=${PORT}
-//                                             POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-//                                             POSTGRES_DB=${POSTGRES_DB}
-//                                             POSTGRES_USER=${POSTGRES_USER}
-//                                             POSTGRES_PORT=${POSTGRES_PORT}
-//                                             S3_API_KEY=${S3_API_KEY}
-//                                             S3_API_SECRET=${S3_API_SECRET}
-//                                             S3_REGION=${S3_REGION}
-//                                             S3_BUCKET=${S3_BUCKET}
-//                                             POSTGRES_HOST=${POSTGRES_HOST}
-// EOF"""
-//                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
-//                                         sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml .env ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
-//                                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
+                                        sh '''cat > .env << EOF
+                                            PORT=${PORT}
+                                            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+                                            POSTGRES_DB=${POSTGRES_DB}
+                                            POSTGRES_USER=${POSTGRES_USER}
+                                            POSTGRES_PORT=${POSTGRES_PORT}
+                                            S3_API_KEY=${S3_API_KEY}
+                                            S3_API_SECRET=${S3_API_SECRET}
+                                            S3_REGION=${S3_REGION}
+                                            S3_BUCKET=${S3_BUCKET}
+                                            POSTGRES_HOST=${POSTGRES_HOST}
+EOF'''
+                                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
+                                        sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml .env ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
+                                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up'"
 //                                     }
 
-                                 }
+//                                  }
                             }
                       }
                   }
