@@ -40,7 +40,7 @@ module "node_app" {
   instance_name        = "node-app-instance"
   instance_env         = "node-app"
   instance_role        = "core"
-  key_name = "jenkins_server_ec2_key"
+  key_name = "jenkins_server_2_ec2_key"
 }
 
 resource "aws_volume_attachment" "ebs_att" {
