@@ -42,3 +42,8 @@ module "node_app" {
   instance_role        = "core"
   key_name = "jenkins_server_2_ec2_key"
 }
+
+module "monitoring" {
+  source = "./modules/monitoring"
+  ec2-instance = module.node_app.instance_id
+}
