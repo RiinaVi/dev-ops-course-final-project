@@ -40,7 +40,7 @@ pipeline {
                 dir('terraform-app') {
                    withAWS(credentials: 'aws-credentials') {
                         build job: 'ansible/ansible', parameters: [
-                            string(name: 'SERVER_IP', value: sh(returnStdout: true, script: "terraform output server_ip"))
+                            string(name: 'SERVER_IP', value: sh(returnStdout: true, script: "terraform output -raw server_ip"))
                         ], wait: false
                     }
                 }
