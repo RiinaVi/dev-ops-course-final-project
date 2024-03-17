@@ -54,7 +54,7 @@ pipeline {
                             S3_BUCKET=${S3_BUCKET}
                             POSTGRES_HOST=${POSTGRES_HOST}
 EOF'''
-                        sh "sudo reboot"
+                        sh "reboot"
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'sudo reboot'"
 //                         sh "sleep 120"
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
