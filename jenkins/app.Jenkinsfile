@@ -42,6 +42,7 @@ pipeline {
         stage('Deploy the Application') {
               steps {
                    sshagent(credentials: ['ec2-key']) {
+                        sh "sleep 60"
                         sh '''cat > .env << EOF
                             PORT=${PORT}
                             POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
