@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Node.js configuration') {
+        stage('Install Node.js, Docker, Docker-compose') {
             steps {
                 dir('ansible') {
                     sshagent(credentials: ['ec2-key']) {
