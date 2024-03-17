@@ -42,18 +42,3 @@ module "node_app" {
   instance_role        = "core"
   key_name = "jenkins_server_2_ec2_key"
 }
-
-resource "aws_volume_attachment" "ebs_att" {
-  device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.server_storage.id
-  instance_id = module.node_app.instance_id
-}
-
-resource "aws_ebs_volume" "server_storage" {
-  availability_zone = "us-east-2b"
-  size              = 20
-
-  tags = {
-    Name = "server-storage"
-  }
-}

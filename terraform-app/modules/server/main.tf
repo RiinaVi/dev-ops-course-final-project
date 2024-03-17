@@ -10,4 +10,9 @@ resource "aws_instance" "ec2" {
     Role = var.instance_role
     Env = var.instance_env
   }
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp2"
+    encrypted   = true
+  }
 }
