@@ -70,10 +70,3 @@
     path: /usr/local/bin/docker-compose
     owner: ubuntu
     group: ubuntu
-
-- name: Wait for server to restart
-  local_action:
-    module: wait_for
-      host={{ ansible_hostname }}
-      port=22
-      delay=10
