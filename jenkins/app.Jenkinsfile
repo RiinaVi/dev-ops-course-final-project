@@ -54,7 +54,7 @@ pipeline {
                             S3_BUCKET=${S3_BUCKET}
                             POSTGRES_HOST=${POSTGRES_HOST}
 EOF'''
-                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'reboot'"
+                        sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'sudo reboot'"
                         sh "sleep 120"
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
                         sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml .env ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
