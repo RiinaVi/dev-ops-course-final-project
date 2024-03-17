@@ -14,7 +14,7 @@ pipeline {
         string(name: 'S3_REGION', defaultValue: 'us-east-2',  description: 'S3 region')
         string(name: 'S3_BUCKET', defaultValue: 'dev-ops-course-final-project-users-images-bucket',  description: 'S3 bucket')
 
-        credentials(name: 'postgres-password', description: 'postgresql db password', defaultValue: '', credentialType: "String", required: true )
+        credentials(name: 'POSTGRES_PASSWORD', description: 'postgresql db password', defaultValue: 'postgres-password', credentialType: "String", required: true )
     }
 
     stages {
@@ -44,7 +44,7 @@ pipeline {
                    sshagent(credentials: ['ec2-key']) {
                         sh '''cat > .env << EOF
                             PORT=${PORT}
-                            POSTGRES_PASSWORD=${postgres-password}
+                            POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
                             POSTGRES_DB=${POSTGRES_DB}
                             POSTGRES_USER=${POSTGRES_USER}
                             POSTGRES_PORT=${POSTGRES_PORT}
