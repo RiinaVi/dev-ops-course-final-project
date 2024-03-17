@@ -36,6 +36,11 @@ credentials:
                 id: "postgres-password"
                 scope: GLOBAL
                 secret: "${file:/var/lib/jenkins/postgres-password}"
+          - string:
+                description: "Github personal access token"
+                id: "github-token"
+                scope: GLOBAL
+                secret: "${file:/var/lib/jenkins/github-token}"
 jenkins:
   agentProtocols:
     - "JNLP4-connect"
@@ -122,6 +127,14 @@ security:
   gitHostKeyVerificationConfiguration:
     sshHostKeyVerificationStrategy: "acceptFirstConnectionStrategy"
 unclassified:
+    gitHubPluginConfig:
+        configs:
+        - credentialsId: "github-token"
+          name: "github"
+        hookUrl: "http://{{ jenkins_hostname }}:{{ jenkins_port }}/github-webhook/"
+    pipeline-model-docker:
+        registry:
+          credentialsId: "dockerhub-token"
 jobs:
   - file: /var/lib/jenkins/jobdsl/folders.groovy
   - file: /var/lib/jenkins/jobdsl/pipelines.groovy

@@ -17,6 +17,9 @@ pipelineJob('docker/docker') {
             lightweight(true)
         }
     }
+     triggers {
+        githubPush()
+    }
 }
 
 pipelineJob('infrastructure/terraform') {

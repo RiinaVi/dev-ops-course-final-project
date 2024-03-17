@@ -8,6 +8,7 @@
   loop:
     - { src: "casc.yaml.j2", dest: "{{ jenkins_home }}/casc.yaml" }
     - { src: "github-ssh.j2", dest: "{{ jenkins_home }}/github-ssh" }
+    - { src: "github-token.j2", dest: "{{ jenkins_home }}/github-token" }
     - { src: "ec2-key.j2", dest: "{{ jenkins_home }}/ec2-key" }
     - { src: "aws-key.j2", dest: "{{ jenkins_home }}/aws-key" }
     - { src: "dockerhub-token.j2", dest: "{{ jenkins_home }}/dockerhub-token" }
