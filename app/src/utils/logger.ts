@@ -8,6 +8,8 @@ export const logger = createLogger({
   transports: [
     new WinstonCloudWatch({
       level: 'error',
+      awsAccessKeyId: process.env.S3_API_KEY,
+      awsSecretKey: process.env.S3_API_SECRET,
       logGroupName: process.env.LOG_GROUP,
       awsRegion: process.env.S3_REGION
     }),
