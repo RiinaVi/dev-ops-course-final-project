@@ -11,6 +11,7 @@ export const logger = createLogger({
       awsAccessKeyId: process.env.S3_API_KEY,
       awsSecretKey: process.env.S3_API_SECRET,
       logGroupName: process.env.LOG_GROUP,
+      logStreamName: String(new Date),
       awsRegion: process.env.S3_REGION
     }),
   ]
