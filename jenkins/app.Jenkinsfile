@@ -78,7 +78,7 @@ EOF'''
                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                  ]]) {
                      sshagent(credentials: ['ec2-key']) {
-                     sh '''cat > .env << EOF
+                     sh '''cat > .env-test << EOF
                       S3_API_KEY=${AWS_ACCESS_KEY_ID}
                       S3_API_SECRET=${AWS_SECRET_ACCESS_KEY}
 EOF'''
