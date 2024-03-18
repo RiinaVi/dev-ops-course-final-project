@@ -33,9 +33,9 @@ const main = async () => {
   });
 
   app.listen(PORT, () => {
-    logger.log('debug', `server started at http://${process.env.SERVER_IP}:${PORT}`);
+    logger.log('debug', `server started at http://${process.env.SERVER_IP ?? 'localhost'}:${PORT}`);
 
-    console.log(`server started at http://${process.env.SERVER_IP}:${PORT}`);
+    console.log(`server started at http://${process.env.SERVER_IP ?? 'localhost'}:${PORT}`);
   });
 };
 
