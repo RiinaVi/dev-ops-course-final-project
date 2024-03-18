@@ -17,9 +17,10 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                | Description                         |
-|---------------------------------------------------------------------------------------------------------------------|-------------------------------------|
-| [aws_security_group.sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | Provides a security group resource. |
+| Name                                                                                                                        | Description                                                                                     |
+|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| [aws_security_group.sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)         | Provides a security group resource.                                                             |
+| [aws_key_pair.jenkins_server_ec2_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | Provides an EC2 key pair resource. A key pair is used to control login access to EC2 instances. |
 
 ## Inputs
 
@@ -35,4 +36,5 @@ No modules.
 | Name                                               | Description       |
 |----------------------------------------------------|-------------------|
 | <a name="output_sg_id"></a> [sg\_id](./outputs.tf) | Security Group Id |
+| <a name="key_name"></a> [key_name](./outputs.tf)   | EC2 key name      |
 <!-- END_TF_DOCS -->

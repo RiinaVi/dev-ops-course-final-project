@@ -1,7 +1,8 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+- Terraform installed
+- `ec2_key` rsa key pair generated and located in the root of `terraform-jenkins` directory
 
 ## Providers
 
@@ -19,9 +20,7 @@ No requirements.
 
 ## Resources
 
-| Name                                                                                                     | Description                                                     |
-|----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| [aws_ami.ubuntu_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | Data Source which generates EC2 ami based on listed parameters. |
+No resources.
 
 ## Inputs
 
@@ -29,7 +28,11 @@ No inputs.
 
 ## Outputs
 
-| Name                                                        | Description                                   |
-|-------------------------------------------------------------|-----------------------------------------------|
-| <a name="output_jenkins"></a> [jenkins](./outputs.tf)       | Output of Jenkins server: public IP and ID    |
+| Name                                                             | Description                                |
+|------------------------------------------------------------------|--------------------------------------------|
+| <a name="jenkins_ip"></a> [jenkins_ip](./outputs.tf)             | Output of Jenkins server: public IP        |
+| <a name="jenkins_full_url"></a> [jenkins_full_url](./outputs.tf) | Full URL of Jenkins server for convenience |
+| <a name="vpc_id"></a> [vpc_id](./outputs.tf)                     | VPC id                                     |
+| <a name="subnet_id"></a> [subnet_id](./outputs.tf)               | Subnet id                                  |
+| <a name="key_name"></a> [key_name](./outputs.tf)                 | Jenkins server EC2 key name                |
 <!-- END_TF_DOCS -->

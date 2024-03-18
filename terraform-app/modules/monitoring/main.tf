@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_dashboard" "demo-dashboard" {
+resource "aws_cloudwatch_dashboard" "app-dashboard" {
   dashboard_name = "demo-dashboard-${var.ec2-instance}"
 
   dashboard_body = jsonencode({

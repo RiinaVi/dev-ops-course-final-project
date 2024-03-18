@@ -29,8 +29,6 @@ module "security" {
   vpc_id        = module.network.vpc_id
 }
 
-
-
 module "node_app" {
   source               = "./modules/server"
   ami                  = "ami-05fb0b8c1424f266b"

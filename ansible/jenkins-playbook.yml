@@ -12,13 +12,3 @@
       66386630653739306136633934353133366366653130353863343533643836343131393931646134
       6136326361383232370a636437346631343031636234616530386231346163373238346136626438
       3137
-
-# Example
-#  ansible-playbook jenkins-playbook.yml \
-#     -i inventory.ini \
-#     --extra-vars "jenkins_ip=<вкажіть IP>" \
-#     --diff --check
-
-# Useful tags:
-#   --tags "install_jenkins_plugins" - install latest version of the plugins declared in default/main.yml
-#   --tags "template_config_files" - templates all config files: casc.yml + jobDSL folders/pipelines

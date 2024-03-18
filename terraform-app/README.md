@@ -11,17 +11,16 @@ No requirements.
 
 ## Modules
 
-| Name                                                                | Source               | Version |
-|---------------------------------------------------------------------|----------------------|---------|
-| <a name="module_jenkins"></a> [server](./modules/server)            | ./modules/server     | n/a     |
-| <a name="module_network"></a> [network](./modules/network)          | ./modules/network    | n/a     |
-| <a name="module_security"></a> [security](./modules/security)       | ./modules/security   | n/a     |
+| Name                                                              | Source               | Version |
+|-------------------------------------------------------------------|----------------------|---------|
+| <a name="module_jenkins"></a> [server](./modules/server)          | ./modules/server     | n/a     |
+| <a name="module_network"></a> [network](./modules/network)        | ./modules/network    | n/a     |
+| <a name="module_security"></a> [security](./modules/security)     | ./modules/security   | n/a     |
+| <a name="module_monitoring"></a> [security](./modules/monitoring) | ./modules/monitoring | n/a     |
 
 ## Resources
 
-| Name                                                                                                     | Description                                                     |
-|----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| [aws_ami.ubuntu_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | Data Source which generates EC2 ami based on listed parameters. |
+No resources.
 
 ## Inputs
 
