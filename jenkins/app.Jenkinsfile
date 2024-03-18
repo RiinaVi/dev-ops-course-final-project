@@ -70,20 +70,23 @@ EOF'''
              }
          }
          stage('aws creds test') {
-                     steps {
+              steps {
                  withCredentials([[
                      $class: 'AmazonWebServicesCredentialsBinding',
                      credentialsId: "aws-credentials",
                      accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                  ]]) {
+                     sshagent(credentials: ['ec2-key']) {
                      sh '''cat > .env << EOF
-                         S3_API_KEY=${AWS_ACCESS_KEY_ID}
-                         S3_API_SECRET=${AWS_SECRET_ACCESS_KEY}
- EOF'''
+                      S3_API_KEY=${AWS_ACCESS_KEY_ID}
+                      S3_API_SECRET=${AWS_SECRET_ACCESS_KEY}
+EOF'''
 
-                     sh "scp -o StrictHostKeyChecking=no -r .env-test ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
-                 }
+                      sh "scp -o StrictHostKeyChecking=no -r .env-test ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
+
+                     }
+                  }
              }
          }
          stage('Return server url') {
