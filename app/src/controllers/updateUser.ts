@@ -9,6 +9,7 @@ import {
   updateUserSchema,
 } from '../utils';
 import UserRepository from '../repositories/UserRepository';
+import { logger } from '../utils/logger';
 
 const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -49,6 +50,18 @@ const updateUser = async (req: Request, res: Response) => {
         ...fields,
         image: userImage,
       });
+
+      logger.log(
+        'debug',
+        `Requesting ${req.method} ${req.originalUrl}`,
+        {
+          tags: 'http',
+          additionalInfo: {
+            body: req.body,
+            headers: req.headers,
+            response: { ...userData, ...fields, image: userImage },
+          },
+        });
 
       res.send({ ...userData, ...fields, image: userImage });
     },

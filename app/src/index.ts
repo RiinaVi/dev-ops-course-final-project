@@ -32,13 +32,10 @@ const main = async () => {
     }
   });
 
-  app.use((req, res, next) => {
-    logger.log('debug', `Requesting ${req.method} ${req.originalUrl}`, {tags: 'http', additionalInfo: {body: req.body, headers: req.headers }});
-    next()
-  });
-
   app.listen(PORT, () => {
-    console.log(`server started at http://localhost:${PORT}`);
+    logger.log('debug', `server started at http://${process.env.SERVER_IP}:${PORT}`);
+
+    console.log(`server started at http://${process.env.SERVER_IP}:${PORT}`);
   });
 };
 

@@ -3,6 +3,7 @@ import { getConnection } from 'typeorm';
 
 import UserRepository from '../repositories/UserRepository';
 import { deleteImageById } from '../utils';
+import { logger } from '../utils/logger';
 
 const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -16,6 +17,18 @@ const deleteUser = async (req: Request, res: Response) => {
 
   await userRepository.drop(id);
   await deleteImageById(id);
+
+  logger.log(
+    'debug',
+    `Requesting ${req.method} ${req.originalUrl}`,
+    {
+      tags: 'http',
+      additionalInfo: {
+        body: req.body,
+        headers: req.headers,
+        response: userData,
+      },
+    });
 
   res.send(userData);
 };

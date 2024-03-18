@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "ts-node ./dist",
     "dev:start": "npm-run-all build start",
-    "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
+    "dev": "dotenv -- nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "typeorm:run": "npm run typeorm migration:run",
     "typeorm:revert": "npm run typeorm migration:revert"

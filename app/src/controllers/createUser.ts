@@ -5,6 +5,7 @@ import { getConnection } from 'typeorm';
 import { createImageById, createUserSchema, getImageLink } from '../utils';
 import UserRepository from '../repositories/UserRepository';
 import User from '../entities/User';
+import { logger } from '../utils/logger';
 
 const IMAGE_MAX_SIZE = 10_485_760; // 10MB in B
 const VALID_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
@@ -58,6 +59,18 @@ const createUser = (req: Request, res: Response) => {
       user.image = getImageLink(fileName);
 
       await userRepository.put(user);
+
+      logger.log(
+        'debug',
+        `Requesting ${req.method} ${req.originalUrl}`,
+        {
+          tags: 'http',
+          additionalInfo: {
+            body: req.body,
+            headers: req.headers,
+            response: user,
+          },
+        });
 
       res.send(user);
     },
