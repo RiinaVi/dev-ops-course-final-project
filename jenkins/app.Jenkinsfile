@@ -9,13 +9,14 @@ pipeline {
         string(name: 'POSTGRES_USER', defaultValue: 'postgres',  description: 'Postgres user')
         string(name: 'POSTGRES_HOST', defaultValue: 'postgres',  description: 'Postgres host')
         string(name: 'POSTGRES_PORT', defaultValue: '5432',  description: 'Postgres port')
-//         string(name: 'POSTGRES_PASSWORD', defaultValue: '',  description: 'Postgres password')
+        string(name: 'S3_API_KEY', defaultValue: '',  description: 'S3 key')
         string(name: 'POSTGRES_DB', defaultValue: 'test',  description: 'Postgres db')
         string(name: 'S3_REGION', defaultValue: 'us-east-2',  description: 'S3 region')
         string(name: 'S3_BUCKET', defaultValue: 'dev-ops-course-final-project-users-images-bucket',  description: 'S3 bucket')
         string(name: 'LOG_GROUP', defaultValue: 'app-server-log-group',  description: 'log group')
 
         credentials(name: 'POSTGRES_PASSWORD', description: 'postgresql db password', defaultValue: 'postgres-password', credentialType: "String", required: true )
+        credentials(name: 'S3_API_SECRET', description: 'aws secret key', defaultValue: 'aws-credentials', credentialType: "String", required: true )
     }
 
     stages {
@@ -40,9 +41,23 @@ pipeline {
              }
         }
 
+        stage('aws creds test') {
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: "aws-credentials",
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sh "echo ${AWS_ACCESS_KEY_ID} echo ${AWS_SECRET_ACCESS_KEY}"
+                }
+            }
+        }
+
         stage('Deploy the Application') {
               steps {
                    sshagent(credentials: ['ec2-key']) {
+                        sh "echo ${S3_API_KEY} ${S3_API_SECRET}"
                         sh '''cat > .env << EOF
                             PORT=${PORT}
                             POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
