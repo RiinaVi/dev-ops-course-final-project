@@ -55,6 +55,7 @@ pipeline {
                             S3_BUCKET=${S3_BUCKET}
                             POSTGRES_HOST=${POSTGRES_HOST}
                             LOG_GROUP=${LOG_GROUP}
+                            SERVER_IP=${SERVER_IP}
 EOF'''
                         sh "sleep 10"
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'sudo reboot'"
