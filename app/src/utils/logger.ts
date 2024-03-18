@@ -1,5 +1,5 @@
 import { createLogger, format } from 'winston';
-import WinstonCloudWatch from 'winston-cloudwatch';
+import WinstonCloudWatch from 'winston-aws-cloudwatch';
 import * as process from 'process';
 
 export const logger = createLogger({
@@ -7,12 +7,17 @@ export const logger = createLogger({
   format: format.json(),
   transports: [
     new WinstonCloudWatch({
-      level: 'error',
-      awsAccessKeyId: process.env.S3_API_KEY,
-      awsSecretKey: process.env.S3_API_SECRET,
       logGroupName: process.env.LOG_GROUP,
       logStreamName: String(new Date),
-      awsRegion: process.env.S3_REGION
+      createLogGroup: true,
+      createLogStream: true,
+      awsConfig: {
+        accessKeyId: process.env.S3_API_KEY,
+        secretAccessKey: process.env.S3_API_SECRET,
+        region: process.env.S3_REGION,
+      },
+      formatLog: (item: any) =>
+        `${item.level}: ${item.message} ${JSON.stringify(item.meta)}`
     }),
   ]
 });
