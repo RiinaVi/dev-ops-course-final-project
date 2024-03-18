@@ -16,7 +16,7 @@ pipeline {
         string(name: 'LOG_GROUP', defaultValue: 'app-server-log-group',  description: 'log group')
 
         credentials(name: 'POSTGRES_PASSWORD', description: 'postgresql db password', defaultValue: 'postgres-password', credentialType: "String", required: true )
-        credentials(name: 'S3_API_SECRET', description: 'aws secret key', defaultValue: 'aws-credentials', credentialType: "String", required: true )
+        credentials(name: 'S3_API_SECRET', description: 'aws secret key', defaultValue: '###', credentialType: "aws", required: true )
     }
 
     stages {
@@ -41,23 +41,11 @@ pipeline {
              }
         }
 
-        stage('aws creds test') {
-            steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: "aws-credentials",
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                ]]) {
-                    sh "echo ${AWS_ACCESS_KEY_ID} echo ${AWS_SECRET_ACCESS_KEY}"
-                }
-            }
-        }
+
 
         stage('Deploy the Application') {
               steps {
                    sshagent(credentials: ['ec2-key']) {
-                        sh "echo ${S3_API_KEY} ${S3_API_SECRET}"
                         sh '''cat > .env << EOF
                             PORT=${PORT}
                             POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -78,6 +66,23 @@ EOF'''
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'mkdir -p -m 777 ${DESTINATION_PATH}'"
                         sh "scp -o StrictHostKeyChecking=no -r app/docker-compose.yml .env ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'cd ${DESTINATION_PATH} && docker-compose up -d --build'"
+                 }
+             }
+         }
+         stage('aws creds test') {
+                     steps {
+                 withCredentials([[
+                     $class: 'AmazonWebServicesCredentialsBinding',
+                     credentialsId: "aws-credentials",
+                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                 ]]) {
+                     sh '''cat > .env << EOF
+                         S3_API_KEY=${AWS_ACCESS_KEY_ID}
+                         S3_API_SECRET=${AWS_SECRET_ACCESS_KEY}
+ EOF'''
+
+                     sh "scp -o StrictHostKeyChecking=no -r .env-test ${USER}@${SERVER_IP}:${DESTINATION_PATH}"
                  }
              }
          }
