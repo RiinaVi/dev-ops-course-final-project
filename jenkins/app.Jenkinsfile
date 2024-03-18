@@ -13,6 +13,7 @@ pipeline {
         string(name: 'POSTGRES_DB', defaultValue: 'test',  description: 'Postgres db')
         string(name: 'S3_REGION', defaultValue: 'us-east-2',  description: 'S3 region')
         string(name: 'S3_BUCKET', defaultValue: 'dev-ops-course-final-project-users-images-bucket',  description: 'S3 bucket')
+        string(name: 'LOG_GROUP', defaultValue: 'app-server-log-group',  description: 'log group')
 
         credentials(name: 'POSTGRES_PASSWORD', description: 'postgresql db password', defaultValue: 'postgres-password', credentialType: "String", required: true )
     }
@@ -53,6 +54,7 @@ pipeline {
                             S3_REGION=${S3_REGION}
                             S3_BUCKET=${S3_BUCKET}
                             POSTGRES_HOST=${POSTGRES_HOST}
+                            LOG_GROUP=${LOG_GROUP}
 EOF'''
                         sh "sleep 10"
                         sh "ssh -o StrictHostKeyChecking=no ${USER}@${SERVER_IP} 'sudo reboot'"

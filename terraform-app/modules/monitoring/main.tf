@@ -74,3 +74,11 @@ resource "aws_cloudwatch_metric_alarm" "ec2-cpu-alarm" {
   alarm_description         = "This metric monitors ec2 cpu utilization reaches 80%"
   insufficient_data_actions = []
 }
+
+resource "aws_cloudwatch_log_group" "app-log-group" {
+  name = "app-server-log-group"
+
+  tags = {
+    Environment = "node-app"
+  }
+}

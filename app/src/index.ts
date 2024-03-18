@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { createConnection } from 'typeorm';
 
 import router from './routes';
+import { logger } from './utils/logger';
 
 const app = express();
 
@@ -29,6 +30,11 @@ const main = async () => {
         .status(500)
         .send({ error: { message: 'something went wrong :(' } });
     }
+  });
+
+  app.use((req, res, next) => {
+    logger.log('debug', `Requesting ${req.method} ${req.originalUrl}`, {tags: 'http', additionalInfo: {body: req.body, headers: req.headers }});
+    next()
   });
 
   app.listen(PORT, () => {
