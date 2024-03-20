@@ -79,4 +79,21 @@ EOF'''
             }
          }
      }
+     post {
+         always {
+             mail to: 'riinavi86@gmail.com',
+                 // from is empty string because default value is 'address not configured yet', which looks weird
+                 from: '',
+                 subject: "Build: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "The build was completed. \n\nBuild URL: ${env.BUILD_URL}"
+
+         }
+         success {
+             telegramSend "Pipeline $env.JOB_NAME #$env.BUILD_NUMBER  $env.BUILD_URL"
+         }
+         failure {
+
+             telegramSend "Pipeline $env.JOB_NAME #$env.BUILD_NUMBER - failed, please check $env.BUILD_URL"
+         }
+     }
 }
