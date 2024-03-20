@@ -12,6 +12,7 @@
   4) `github-ssh.j2` with private rsa key for accessing GitHub (public part of this key pair needs to go to Github directly)
   5) `github-token.j2` with GitHub personal access token generated in GitHub
   6) `postgres-password.j2` with password for the PostgresQL database
+  7) `gmail-password.j2` with Gmail account app password
 - Generate `jenkins_password` encrypted value with `ansible-vault encrypt_string` command
 
 To start the app run:

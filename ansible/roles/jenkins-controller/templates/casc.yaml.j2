@@ -134,6 +134,17 @@ unclassified:
     pipeline-model-docker:
         registry:
           credentialsId: "dockerhub-token"
+    mailer:
+        authentication:
+          password: "${file:/var/lib/jenkins/gmail-password}"
+          username: "riinavi86@gmail.com"
+        charset: "UTF-8"
+        defaultSuffix: "@gmail.com"
+        replyToAddress: "riinavi86@gmail.com"
+        smtpHost: "smtp.gmail.com"
+        smtpPort: "465"
+        useSsl: true
+        useTls: false
 jobs:
   - file: /var/lib/jenkins/jobdsl/folders.groovy
   - file: /var/lib/jenkins/jobdsl/pipelines.groovy
