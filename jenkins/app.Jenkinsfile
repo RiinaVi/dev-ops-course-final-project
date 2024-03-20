@@ -88,12 +88,5 @@ EOF'''
                  body: "The build was completed. \n\nBuild URL: ${env.BUILD_URL}"
 
          }
-//          success {
-//              telegramSend "Pipeline $env.JOB_NAME #$env.BUILD_NUMBER  $env.BUILD_URL"
-//          }
-//          failure {
-//
-//              telegramSend "Pipeline $env.JOB_NAME #$env.BUILD_NUMBER - failed, please check $env.BUILD_URL"
-//          }
      }
 }
