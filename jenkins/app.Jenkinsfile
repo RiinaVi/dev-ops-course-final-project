@@ -85,7 +85,7 @@ EOF'''
                  // from is empty string because default value is 'address not configured yet', which looks weird
                  from: '',
                  subject: "Build: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "The build was completed. \n\nBuild URL: ${env.BUILD_URL} \n\nJenkins URL: ${env.JENKINS_URL}"
+                 body: "The build was completed. \n\nBuild URL: ${env.BUILD_URL} \n\nJenkins URL: ${env.JENKINS_URL} \n\nJob URL: ${env.JOB_URL}"
 
          }
      }
