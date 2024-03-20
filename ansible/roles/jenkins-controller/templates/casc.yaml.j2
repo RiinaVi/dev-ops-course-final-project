@@ -131,6 +131,9 @@ unclassified:
         - credentialsId: "github-token"
           name: "github"
         hookUrl: "http://{{ jenkins_hostname }}:{{ jenkins_port }}/github-webhook/"
+    location:
+        adminAddress: "riinavi86@gmail.com"
+        url: "http://{{ jenkins_hostname }}:{{ jenkins_port }}/"
     pipeline-model-docker:
         registry:
           credentialsId: "dockerhub-token"
