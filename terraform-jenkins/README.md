@@ -3,6 +3,7 @@
 
 - Terraform installed
 - `ec2_key` rsa key pair generated and located in the root of `terraform-jenkins` directory
+- [terraform-s3](../terraform-s3) configuration applied
 
 ## Providers
 
