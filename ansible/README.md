@@ -19,5 +19,5 @@ To start the app run:
 
 ```sh
 cd ./ansible
-ansible-playbook jenkins-playbook.yml  -i  inventory.ini  --extra-vars "ansible_host=$(<../terraform-jenkins/jenkins_ip.txt )"  --diff --private-key=../terraform-jenkins/ec2_key
+ansible-playbook jenkins-playbook.yml  -i  inventory.ini  --extra-vars "ansible_host=$(<../terraform-jenkins/jenkins_ip.txt )"  --diff --private-key=../terraform-jenkins/ec2_key --ask-vault-pass
 ```
