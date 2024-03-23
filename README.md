@@ -19,7 +19,7 @@
   run `terraform init`, `terraform apply`
 - In [/ansible](./ansible) directory create all the needed credentials files described in
   the [README](./ansible/README.md),
-  run `ansible-playbook jenkins-playbook.yml -i  inventory.ini --extra-vars "ansible_host=$(<../terraform-jenkins/jenkins_ip.txt )"  --diff --private-key=../terraform-jenkins/ec2_key`
+  run `ansible-playbook jenkins-playbook.yml -i  inventory.ini --extra-vars "ansible_host=$(<../terraform-jenkins/jenkins_ip.txt )"  --diff --private-key=../terraform-jenkins/ec2_key --ask-vault-pass`
 - Go to the generated API address: and log in to Jenkins dashboard
 - Start `terraform` pipeline
 - To configure GitHub webhook: grab the generated app server IP and go to 'Manage Webhook' page, and paste 'paload URL'
