@@ -7,7 +7,7 @@
     update_cache: true
 
 - name: Install required system packages
-  apt:
+  ansible.builtin.apt:
     pkg:
       - apt-transport-https
       - ca-certificates
@@ -20,30 +20,30 @@
     update_cache: true
 
 - name: Add Docker GPG apt Key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Add Docker Repository
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu focal stable
     state: present
 
 - name: Update apt and install docker-ce
-  apt:
+  ansible.builtin.apt:
     name: docker-ce
     state: latest
     update_cache: true
 
 - name: Install Docker Module for Python
-  pip:
+  ansible.builtin.pip:
     name: docker
 
 - name: Give docker needed permission
   ansible.builtin.shell: sudo chmod 666 /var/run/docker.sock
 
 - name: check docker is active
-  service:
+  ansible.builtin.service:
     name: docker
     state: started
     enabled: yes
@@ -54,13 +54,13 @@
     state: present
 
 - name: adding ubuntu to docker group
-  user:
+  ansible.builtin.user:
     name: ubuntu
     groups: docker
     append: yes
 
 - name: Install docker-compose
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: 'u+x,g+x'
@@ -72,4 +72,4 @@
     group: ubuntu
 
 - name: Unconditionally reboot the machine with all defaults
-  reboot:
+  ansible.builtin.reboot:
